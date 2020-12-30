@@ -1,0 +1,83 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	controllerName="leverx.app.controller.FirstPage">
+	<Page title="Binding object demo">
+		<subHeader>
+			<Toolbar>
+				<ToolbarSpacer />
+
+				<Button text="Open data types demo" type="Emphasized" press="onOpenDataTypesDemoPress" />
+			</Toolbar>
+		</subHeader>
+
+		<Table
+			mode="SingleSelectLeft"
+			select="onSuppliersTableItemSelect"
+			items="{odata>/Suppliers}"
+			includeItemInSelection="true"
+			width="35rem">
+			<columns>
+				<Column>
+					<Text text="Supplier ID"/>
+				</Column>
+
+				<Column>
+					<Text text="Supplier Name"/>
+				</Column>
+
+				<Column>
+					<Text text="Supplier City"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<Text text="{odata>ID}"/>
+					<Text text="{odata>Name}"/>
+					<Text text="{odata>Address/City}"/>
+				</ColumnListItem>
+			</items>
+		</Table>
+
+		<Table
+			id="ProductsTable"
+			items="{odata>Products}"
+			width="35rem"
+			class="sapUiMediumMarginTop">
+			<headerToolbar>
+				<Toolbar>
+					<!-- display the products count -->
+					<Title text="Products ({appView>/productsCount})"/>
+
+					<ToolbarSpacer/>
+
+					<SearchField search="onProductSearch" width="15rem"/>
+				</Toolbar>
+			</headerToolbar>
+			<columns>
+				<Column>
+					<Text text="Product ID"/>
+				</Column>
+
+				<Column>
+					<HBox alignItems="Center">
+						<Text text="Product Name"/>
+						<Button
+							type="Transparent"
+							icon="sap-icon://{
+								path: 'appView>/sortType',
+								formatter: '.sortTypeFormatter'
+							}"
+							press="onSortButtonPress"/>
+					</HBox>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<Text text="{odata>ID}"/>
+					<Text text="{odata>Name}"/>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</Page>
+</mvc:View>

@@ -1,0 +1,48 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	controllerName="leverx.app.controller.FirstPage">
+	<Page title="{
+		path: 'orderModel>/order/comment',
+		formatter: '.pageTitleFormatter'
+	}">
+		<!-- Vertical flex box container -->
+		<!-- Bind control's "busy" property to the "viewModel" property. Set the "busyIndicatorDelay" to 0 for instant
+		busy state -->
+		<VBox
+			class="sapUiResponsiveMargin"
+			width="20rem"
+			busy="{viewModel>/busy}"
+			busyIndicatorDelay="0">
+
+			<!-- "sap.m.Text" control with bound "text" property -->
+			<Text text="{orderModel>/order/comment}" />
+
+			<!-- "sap.m.Input" control with bound "value" property -->
+			<Input value="{orderModel>/order/comment}" />
+
+			<!-- "sap.m.Input" control with bound "value" property, which will update the bound property after each typed
+			letter -->
+			<Input
+				value="{orderModel>/order/comment}"
+				valueLiveUpdate="true" />
+
+			<!-- "sap.m.Input" control without binding -->
+			<Input id="MyInput" />
+
+			<!-- "sap.m.Button" controls for testing reason. Texts are bound to i18n model -->
+			<Button text="{i18n>BindOWButtonText}" press="onBindInputOWPress" />
+			<Button text="{i18n>BindTWButtonText}" press="onBindInputTWPress" />
+		</VBox>
+
+		<HBox alignItems="Center">
+			<!-- "sap.m.CheckBox" control with bound "selected" property (check state) to the "/busy" property of "viewModel" -->
+			<CheckBox
+				class="sapUiResponsiveMargin"
+				selected="{viewModel>/busy}"
+				text="{i18n>BusyIndicatorChecker}" />
+
+			<Button text="{i18n>ShowPropertyButtonText}" press="onShowPropertyPress" />
+		</HBox>
+	</Page>
+</mvc:View>

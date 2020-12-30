@@ -1,0 +1,175 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.ui.layout.form"
+	controllerName="leverx.app.controller.FirstPage">
+	<Page title="ODataModel binding demo">
+		<Panel headerText="Supplier info" expandable="true" expanded="true">
+			<HBox>
+				<!-- Bind table to the global ODataModel collection path, thus, it automatically requests the data -->
+				<!--"Suppliers" is a name of entityset in $metadata -->
+				<Table
+					mode="SingleSelectLeft"
+					select="onSuppliersTableItemSelect"
+					items="{odata>/Suppliers}"
+					includeItemInSelection="true"
+					width="35rem">
+					<columns>
+						<Column>
+							<Text text="Supplier ID" />
+						</Column>
+
+						<Column>
+							<Text text="Supplier Name" />
+						</Column>
+
+						<Column>
+							<Text text="Supplier City" />
+						</Column>
+
+						<Column />
+					</columns>
+					<items>
+						<!-- as table's items aggregation is bound, the sap.m.ColumnListItem is used as a template, so
+						all inner controls should make use of relative binding to the "Supplier" entry -->
+						<ColumnListItem>
+							<Text text="{odata>ID}" />
+							<Text text="{odata>Name}" />
+							<Text text="{odata>Address/City}" />
+							<Button text="Open page" press="onOpenSupplierPagePress" />
+						</ColumnListItem>
+					</items>
+				</Table>
+
+				<!-- all the form fields are bound relatively, so OData model won't request any data automatically.
+				Once the parent context is set, all the relative binding will try to get properties out of there -->
+				<f:SimpleForm
+					id="SupplierAddressForm"
+					maxContainerCols="1"
+					layout="ResponsiveGridLayout"
+					labelSpanL="1"
+					labelSpanM="2"
+					emptySpanL="0"
+					emptySpanM="0"
+					columnsL="1"
+					columnsM="1">
+					<f:layoutData>
+						<FlexItemData growFactor="1" />
+					</f:layoutData>
+					<f:content>
+						<Label text="Country"/>
+						<Text text="{odata>Address/Country}" />
+
+						<Label text="City"/>
+						<Text text="{odata>Address/City}" />
+
+						<Label text="Street"/>
+						<Text text="{odata>Address/Street}" />
+
+						<Label text="ZIP"/>
+						<Text text="{odata>Address/ZipCode}" />
+
+						<Label text="Zoom"/>
+						<!-- value is bound to the "appView" JSON model's property "zoom" globally -->
+						<Slider
+							enableTickmarks="true"
+							range="0,15"
+							min="0"
+							max="15"
+							value="{appView>/zoom}"
+							class="sapUiSmallMarginBottom"
+							width="400px"/>
+
+						<Label text="Map schema"/>
+						<!-- a special syntax to pass multiple properties to the formatter function -->
+						<Image id="MapImage" width="500px" height="300px" src="{
+							parts: [
+								'appView>/zoom',
+								'odata>Address/ZipCode',
+								'odata>Address/Street',
+								'odata>Address/City',
+								'odata>Address/Country'
+							],
+							formatter: '.supplierAddressFormatter'
+						}" />
+					</f:content>
+				</f:SimpleForm>
+			</HBox>
+		</Panel>
+
+		<Panel headerText="Products info" expandable="true">
+			<HBox>
+				<!-- Bind the table to the relative path "Products", so once the upper context is set, it will try to
+				fetch it's "Products" property, in case of ODataModel, it will try to request "Products" navigation
+				property from the parent context (Supplier) -->
+				<Table
+					id="ProductsTable"
+					mode="SingleSelectLeft"
+					select="onProductsTableItemSelect"
+					items="{odata>Products}"
+					includeItemInSelection="true"
+					width="35rem">
+					<columns>
+						<Column>
+							<Text text="Product ID" />
+						</Column>
+
+						<Column>
+							<Text text="Product Name" />
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<Text text="{odata>ID}" />
+							<Text text="{odata>Name}" />
+						</ColumnListItem>
+					</items>
+				</Table>
+
+				<f:SimpleForm
+					id="ProductDetailForm"
+					maxContainerCols="1"
+					layout="ResponsiveGridLayout"
+					labelSpanL="1"
+					labelSpanM="2"
+					emptySpanL="0"
+					emptySpanM="0"
+					columnsL="1"
+					columnsM="1">
+					<f:layoutData>
+						<FlexItemData growFactor="1" />
+					</f:layoutData>
+					<f:content>
+						<Label text="Name"/>
+						<Text text="{odata>Name}" />
+
+						<Label text="Description"/>
+						<Text text="{odata>Description}" />
+
+						<Label text="Release date"/>
+						<!-- Make use of "Date" type with the property binding-->
+						<Text text="{
+							path: 'odata>ReleaseDate',
+							type: 'sap.ui.model.type.Date'
+						}" />
+
+						<Label text="Discontinue date"/>
+						<Text text="{
+							path: 'odata>DiscontinueDate',
+							type: 'sap.ui.model.type.Date'
+						}" />
+
+						<Label text="Rating"/>
+						<RatingIndicator value="{odata>Rating}" />
+
+						<Label text="Price"/>
+						<Text text="{odata>Price}" />
+
+					</f:content>
+				</f:SimpleForm>
+			</HBox>
+		</Panel>
+	</Page>
+
+
+</mvc:View>

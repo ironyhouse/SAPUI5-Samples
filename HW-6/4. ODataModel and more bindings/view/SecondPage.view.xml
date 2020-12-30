@@ -1,0 +1,45 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	controllerName="leverx.app.controller.SecondPage">
+
+	<!-- all the binding on a page are relative, so they will be considered only once the upper context is set -->
+	<Page title="Supplier page">
+		<ObjectHeader
+			title="Supplier: {odata>Name} ({odata>ID})"
+			condensed="true"
+			number="5"
+			numberUnit="Years" >
+			<attributes>
+				<ObjectAttribute text="Address: {odata>Address/Country}, {odata>Address/City}, {odata>Address/Street}" />
+			</attributes>
+		</ObjectHeader>
+
+		<Table
+			id="ProductsTable"
+			items="{odata>Products}"
+			includeItemInSelection="true"
+			width="35rem">
+			<columns>
+				<Column>
+					<Text text="Product ID" />
+				</Column>
+
+				<Column>
+					<Text text="Product Name" />
+				</Column>
+
+				<Column hAlign="End">
+					<Text text="Price" />
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<Text text="{odata>ID}" />
+					<Text text="{odata>Name}" />
+					<Text text="{odata>Price} USD" />
+				</ColumnListItem>
+			</items>
+		</Table>
+	</Page>
+</mvc:View>

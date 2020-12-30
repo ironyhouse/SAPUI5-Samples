@@ -1,0 +1,212 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	controllerName="leverx.app.controller.FirstPage">
+	<Page title="UI5 responsiveness features">
+		<!-- Examples' configuration checkboxes -->
+		<CheckBox selected="{/displayEx1}" text="Example 1" />
+		<CheckBox selected="{/displayEx2}" text="Example 2" />
+		<CheckBox selected="{/displayEx3}" text="Example 3" />
+
+		<!-- Horizontal flexbox with demonstration of flex-grow property -->
+		<HBox visible="{/displayEx1}">
+			<Input value="input 1" textAlign="Center" editable="false">
+				<!-- each control has "layoutData" aggregation, tha can hold specific layout data control -->
+				<layoutData>
+					<FlexItemData growFactor="1" order="{/order0}" />
+				</layoutData>
+			</Input>
+			<Input value="input 2" textAlign="Center" editable="false">
+				<layoutData>
+					<FlexItemData growFactor="4" order="{/order1}" />
+				</layoutData>
+			</Input>
+			<Input value="input 3" textAlign="Center" editable="false">
+				<layoutData>
+					<FlexItemData growFactor="1" order="{/order2}" />
+				</layoutData>
+			</Input>
+		</HBox>
+
+		<!-- Horizontal flexbox with demonstration of order property -->
+		<HBox visible="{/displayEx1}">
+			<Input value="{ path: '/order0', type: 'sap.ui.model.type.Integer'}" textAlign="Center">
+				<layoutData>
+					<FlexItemData growFactor="1" order="{/order0}" />
+				</layoutData>
+			</Input>
+			<Input value="{ path: '/order1', type: 'sap.ui.model.type.Integer'}" textAlign="Center">
+				<layoutData>
+					<FlexItemData growFactor="4" order="{/order1}" />
+				</layoutData>
+			</Input>
+			<Input value="{ path: '/order2', type: 'sap.ui.model.type.Integer'}" textAlign="Center">
+				<layoutData>
+					<FlexItemData growFactor="1" order="{/order2}" />
+				</layoutData>
+			</Input>
+		</HBox>
+
+		<!-- Horizontal flexbox with demonstration of grow factor property -->
+		<HBox visible="{/displayEx1}">
+			<Input value="{ path: '/gf0', type: 'sap.ui.model.type.Integer'}" textAlign="Center">
+				<layoutData>
+					<FlexItemData growFactor="{/gf0}" order="{/order0}" />
+				</layoutData>
+			</Input>
+			<Input value="{ path: '/gf1', type: 'sap.ui.model.type.Integer'}" textAlign="Center">
+				<layoutData>
+					<FlexItemData growFactor="{/gf1}" order="{/order1}" />
+				</layoutData>
+			</Input>
+			<Input value="{ path: '/gf2', type: 'sap.ui.model.type.Integer'}" textAlign="Center">
+				<layoutData>
+					<FlexItemData growFactor="{/gf2}" order="{/order2}" />
+				</layoutData>
+			</Input>
+		</HBox>
+
+		<!-- Container for configuration inputs (tunes-up the grid layout of form) -->
+		<VBox width="300px" visible="{/displayEx2}">
+			<Input value="{ path: '/labelSpanL', type: 'sap.ui.model.type.Integer'}" description="Label span L" />
+			<Input value="{ path: '/emptySpanL', type: 'sap.ui.model.type.Integer'}" description="Empty span L" />
+			<Input value="{ path: '/labelSpanM', type: 'sap.ui.model.type.Integer'}" description="Label span M" />
+			<Input value="{ path: '/emptySpanM', type: 'sap.ui.model.type.Integer'}" description="Empty span M" />
+			<Input value="{ path: '/labelSpanS', type: 'sap.ui.model.type.Integer'}" description="Label span S" />
+			<Input value="{ path: '/emptySpanS', type: 'sap.ui.model.type.Integer'}" description="Empty span S" />
+		</VBox>
+
+		<!-- The form uses bound span properties -->
+		<f:SimpleForm
+			visible="{/displayEx2}"
+			maxContainerCols="1"
+			layout="ResponsiveGridLayout"
+			adjustLabelSpan="false"
+			labelSpanL="{ path: '/labelSpanL', type: 'sap.ui.model.type.Integer'}"
+			emptySpanL="{ path: '/emptySpanL', type: 'sap.ui.model.type.Integer'}"
+			labelSpanM="{ path: '/labelSpanM', type: 'sap.ui.model.type.Integer'}"
+			emptySpanM="{ path: '/emptySpanM', type: 'sap.ui.model.type.Integer'}"
+			labelSpanS="{ path: '/labelSpanS', type: 'sap.ui.model.type.Integer'}"
+			emptySpanS="{ path: '/emptySpanS', type: 'sap.ui.model.type.Integer'}"
+			columnsL="1"
+			columnsM="1"
+			editable="true">
+			<f:content>
+				<Label text="Name" />
+				<Input />
+
+				<Label text="Last name" />
+				<Input />
+
+				<Label text="Paid" />
+				<CheckBox />
+
+				<Label text="Gender" />
+				<Select>
+					<items>
+						<core:ListItem key="1" text="Male" />
+						<core:ListItem key="2" text="Female" />
+					</items>
+				</Select>
+
+				<Label text="Birth date" />
+				<DatePicker />
+			</f:content>
+		</f:SimpleForm>
+
+
+		<!-- Grid control with GridData layout data for children -->
+		<l:Grid class="sapUiSmallMarginTop" visible="{/displayEx3}">
+			<!-- first row with 1/4 for L and 1/2 for M and 1 for S -->
+
+			<ObjectListItem
+				title="Keyboard"
+				intro="Hardcore Hacker"
+				icon="sap-icon://collections-management">
+				<layoutData>
+					<l:GridData span="L3 M6 S12" />
+				</layoutData>
+			</ObjectListItem>
+
+			<ObjectListItem
+				title="Graphics Card"
+				intro="Gladiator MX"
+				icon="sap-icon://measure">
+				<layoutData>
+					<l:GridData span="L3 M6 S12" />
+				</layoutData>
+			</ObjectListItem>
+
+			<ObjectListItem
+				title="Graphics Card"
+				intro="Hurricane GX"
+				icon="sap-icon://measure">
+				<layoutData>
+					<l:GridData span="L3 M6 S12" />
+				</layoutData>
+			</ObjectListItem>
+
+			<ObjectListItem
+				title="Graphics Card"
+				intro="Hurricane GX"
+				icon="sap-icon://measure">
+				<layoutData>
+					<l:GridData span="L3 M6 S12" />
+				</layoutData>
+			</ObjectListItem>
+
+			<!-- Second row with 1/3 for L and 1/3 for M and 1 for S -->
+
+			<ObjectListItem
+				title="Laptop"
+				intro="High End laptop 2b"
+				icon="sap-icon://laptop">
+				<layoutData>
+					<l:GridData span="L4 M4 S12" />
+				</layoutData>
+			</ObjectListItem>
+
+			<ObjectListItem
+				title="Printer"
+				intro="Laser Allround Pro"
+				icon="sap-icon://print">
+				<layoutData>
+					<l:GridData span="L4 M4 S12" />
+				</layoutData>
+			</ObjectListItem>
+
+			<ObjectListItem
+				title="Monitor"
+				intro="Flat S"
+				icon="sap-icon://sys-monitor">
+				<layoutData>
+					<l:GridData span="L4 M4 S12" />
+				</layoutData>
+			</ObjectListItem>
+
+
+			<!-- Third row with 1/2 for L, M and S -->
+
+			<ObjectListItem
+				title="Printer"
+				intro="Deskjet Super Highspeed"
+				icon="sap-icon://print">
+				<layoutData>
+					<l:GridData span="L6 M6 S6" />
+				</layoutData>
+			</ObjectListItem>
+
+			<ObjectListItem
+				title="Projector"
+				intro="Power Projector 4713"
+				icon="sap-icon://projector">
+				<layoutData>
+					<l:GridData span="L6 M6 S6" />
+				</layoutData>
+			</ObjectListItem>
+		</l:Grid>
+	</Page>
+</mvc:View>

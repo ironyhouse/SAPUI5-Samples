@@ -1,0 +1,47 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	controllerName="leverx.app.controller.FirstPage">
+	<Page title="ODataModel CRUD operations demo">
+		<Table
+			select="onSuppliersTableItemSelect"
+			items="{odata>/Suppliers}"
+			width="35rem">
+			<headerToolbar>
+				<Toolbar>
+					<ToolbarSpacer/>
+
+					<Button press="onCreateSupplierPress" text="Create"/>
+
+					<Button press="onReadSuppliersPress" text="Read"/>
+				</Toolbar>
+			</headerToolbar>
+			<columns>
+				<Column>
+					<Text text="Supplier ID"/>
+				</Column>
+
+				<Column>
+					<Text text="Supplier Name"/>
+				</Column>
+
+				<Column>
+					<Text text="Supplier City"/>
+				</Column>
+
+				<Column/>
+				<Column/>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<Text text="{odata>ID}"/>
+					<Text text="{odata>Name}"/>
+					<Text text="{odata>Address/City}"/>
+
+					<Button press="onUpdateSupplierPress" text="Update"/>
+					<Button press="onDeleteSupplierPress" text="Delete"/>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</Page>
+</mvc:View>

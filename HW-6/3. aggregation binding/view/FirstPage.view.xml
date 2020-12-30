@@ -1,0 +1,52 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	controllerName="leverx.app.controller.FirstPage">
+	<Page title="Aggregation binding">
+		<!-- "sap.m.ComboBox" control has aggregation "items", if we want to bind it to array in model, we must do 2 things:
+			1. set the path of array in "items" property of the control
+			2. specify the template control, which will be used for each entry in array
+		-->
+		<ComboBox items="{productsModel>/products}">
+			<!-- "sap.ui.core.ListItem" control is used as a template, meaning for each array entry, template item will
+			be created. In the template, binding syntax is relative to the array entry, so the "/" at the beginning
+			must be removed but the model's name must be still presented! -->
+			<core:ListItem key="{productsModel>ProductID}" text="{productsModel>ProductName}" />
+		</ComboBox>
+
+		<!-- The same applies to the table's "items" aggregation -->
+		<Table items="{productsModel>/products}" width="50rem">
+			<columns>
+				<Column>
+					<Text text="Product ID" />
+				</Column>
+
+				<Column>
+					<Text text="Product Name" />
+				</Column>
+			</columns>
+			<items>
+				<!-- if the aggregation binding is used, the "items" aggregation content - is a template for each and
+				every entry of bound array -->
+				<ColumnListItem>
+					<Text text="{productsModel>ProductID}" />
+					<Input value="{productsModel>ProductName}" />
+				</ColumnListItem>
+			</items>
+		</Table>
+
+		<!-- in example below, ID and Name are bound to a JSON model just for convenience, it is better to have declarative
+		coding instead of ordinary one -->
+		<HBox alignItems="Center">
+			<Label text="Product ID:" class="sapUiTinyMarginEnd" />
+			<Input value="{newProductModel>/ID}" />
+
+			<Label text="Product Name:" class="sapUiSmallMarginBegin sapUiTinyMarginEnd" />
+			<Input value="{newProductModel>/Name}" />
+
+			<Button text="Create" press="onCreateProductPress" class="sapUiSmallMarginBegin" />
+		</HBox>
+
+	</Page>
+</mvc:View>

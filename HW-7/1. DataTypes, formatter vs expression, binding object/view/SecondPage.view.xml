@@ -1,0 +1,123 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.ui.layout.form"
+	controllerName="leverx.app.controller.SecondPage">
+
+	<Page title="Data types">
+		<f:SimpleForm
+			maxContainerCols="1"
+			layout="ResponsiveGridLayout"
+			labelSpanL="2"
+			labelSpanM="4"
+			emptySpanL="5"
+			emptySpanM="3"
+			columnsL="1"
+			columnsM="1"
+			editable="true">
+			<f:content>
+				<Label text="Country"/>
+				<Input  value="{
+					path: '/Country',
+					type: 'sap.ui.model.type.String',
+					constraints: {
+						minLength: 3,
+						maxLength: 10,
+						contains: 'foo'
+					}
+				}" />
+
+				<Label text="Arrival Date changer" />
+				<DateTimePicker value="{
+					path: '/ArrivalDate',
+					type: 'sap.ui.model.type.DateTime'
+				}" />
+
+				<Label text="Arrival Date relative" />
+				<Text text="{
+					path: '/ArrivalDate',
+					type: 'sap.ui.model.type.Date',
+					formatOptions: {
+						relative: true
+					}
+				}" />
+
+				<Label text="Arrival Date pattern" />
+				<Text text="{
+					path: '/ArrivalDate',
+					type: 'sap.ui.model.type.Date',
+					formatOptions: {
+						pattern: 'YYYY MMM dd'
+					}
+				}" />
+
+				<Label text="Arrival Time pattern" />
+				<Text text="{
+					path: '/ArrivalDate',
+					type: 'sap.ui.model.type.Date',
+					formatOptions: {
+						pattern: 'h:mm:ss a'
+					}
+				}" />
+
+				<Label text="Attachment size"/>
+				<Input value="{
+					path: '/AttachmentSize',
+					type: 'sap.ui.model.type.FileSize',
+					formatOptions: {
+						binaryFilesize: false
+					}
+				}" />
+
+				<Label text="Price"/>
+				<Input value="{
+					path: '/Price/value',
+					type: 'sap.ui.model.type.Float',
+					formatOptions: {
+						decimals: 2
+					},
+					constraints: {
+						minimum: 100,
+						maximum: 100000000
+					}
+				}" />
+
+				<Label text="Price &amp; currency"/>
+				<Input value="{
+					parts: [
+						'/Price/value',
+						'/Price/currency'
+					],
+					type: 'sap.ui.model.type.Currency',
+					formatOptions: {
+						currencyCode: false,
+						decimals: 4
+					},
+					constraints: {
+						minimum: 100
+					}
+				}" />
+
+				<Label text="Number color accent" />
+				<ObjectStatus
+					text="{/AttachmentSize}"
+					state="{= ${/AttachmentSize} > 1000 ? 'Success' : 'Error' }" />
+
+				<Label text="Number color accent (complex)" />
+				<ObjectStatus
+					text="{
+						path: '/AttachmentSize',
+						type: 'sap.ui.model.type.FileSize',
+						formatOptions: {
+							binaryFilesize: false
+						}
+					}"
+					state="{
+						path: '/AttachmentSize',
+						formatter: '.formatSizeAccent'
+					}" />
+			</f:content>
+		</f:SimpleForm>
+	</Page>
+
+</mvc:View>

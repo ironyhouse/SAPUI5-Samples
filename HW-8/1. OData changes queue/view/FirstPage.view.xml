@@ -1,0 +1,122 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core"
+	core:require="{ formatMessage: 'sap/base/strings/formatMessage' }"
+	controllerName="leverx.app.controller.FirstPage">
+	<Page title="ODataModel changes queue">
+		<Table
+			select="onSuppliersTableItemSelect"
+			items="{odata>/Suppliers}">
+			<headerToolbar>
+				<Toolbar>
+					<ToolbarSpacer/>
+
+					<Button icon="sap-icon://add" press="onCreateSupplierPress" type="Transparent"/>
+
+					<Button icon="sap-icon://edit" visible="{= !${appView>/edit} }" press="onEditPress" />
+					<Button icon="sap-icon://save" visible="{appView>/edit}" press="onSavePress" />
+					<Button icon="sap-icon://cancel" visible="{appView>/edit}" press="onCancelPress" />
+				</Toolbar>
+			</headerToolbar>
+			<columns>
+				<Column>
+					<Text text="ID"/>
+				</Column>
+
+				<!-- If the minScreenWidth is defined and demandPopin is set to false (default value), the column will
+				be hidden once the screen reaches the defined size -->
+				<Column minScreenWidth="Tablet">
+					<Text text="Concurrency"/>
+				</Column>
+
+				<Column>
+					<Text text="Name"/>
+				</Column>
+
+				<!-- Here the demandPopin is set to true, so once the screen reaches the defined size, the column will
+				go to pop-in area -->
+				<Column minScreenWidth="450px" demandPopin="true">
+					<Text text="Street"/>
+				</Column>
+
+				<Column minScreenWidth="750px" demandPopin="true">
+					<Text text="City"/>
+				</Column>
+
+				<Column minScreenWidth="810px" demandPopin="true">
+					<Text text="State"/>
+				</Column>
+
+				<Column minScreenWidth="910px" demandPopin="true">
+					<Text text="ZipCode"/>
+				</Column>
+
+				<Column minScreenWidth="1080px" demandPopin="true">
+					<Text text="Country"/>
+				</Column>
+
+				<Column minScreenWidth="1460px" demandPopin="true">
+					<Text text="Summary"/>
+				</Column>
+
+				<Column hAlign="Center"/>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<Text text="{odata>ID}" />
+
+					<Text text="{odata>Concurrency}" />
+
+					<!-- Store both versions of controls (display|editable), and show/hide depending on the editable
+					property -->
+					<l:HorizontalLayout>
+						<Input value="{odata>Name}" visible="{appView>/edit}"/>
+						<Text text="{odata>Name}" visible="{= !${appView>/edit} }" />
+					</l:HorizontalLayout>
+
+					<l:HorizontalLayout>
+						<Input value="{odata>Address/Street}" visible="{appView>/edit}" />
+						<Text text="{odata>Address/Street}" visible="{= !${appView>/edit} }" />
+					</l:HorizontalLayout>
+
+					<l:HorizontalLayout>
+						<Input value="{odata>Address/City}" visible="{appView>/edit}" />
+						<Text text="{odata>Address/City}" visible="{= !${appView>/edit} }" />
+					</l:HorizontalLayout>
+
+					<l:HorizontalLayout>
+						<Input value="{odata>Address/State}" visible="{appView>/edit}"/>
+						<Text text="{odata>Address/State}" visible="{= !${appView>/edit} }" />
+					</l:HorizontalLayout>
+
+					<l:HorizontalLayout>
+						<Input value="{odata>Address/ZipCode}" visible="{appView>/edit}"/>
+						<Text text="{odata>Address/ZipCode}" visible="{= !${appView>/edit} }" />
+					</l:HorizontalLayout>
+
+					<l:HorizontalLayout>
+						<Input value="{odata>Address/Country}" visible="{appView>/edit}"/>
+						<Text text="{odata>Address/Country}" visible="{= !${appView>/edit} }" />
+					</l:HorizontalLayout>
+
+					<!-- the first argument must be the path to i18n key, then all properties in the straight order,
+					 make use of standard formatter from jquery -->
+					<Text text="{
+						parts: [
+							'i18n>SupplierInfo',
+							'odata>ID',
+							'odata>Address/Country',
+							'odata>Address/City',
+							'odata>Address/State'
+						],
+						formatter: 'formatMessage'
+					}"/>
+
+					<Button press="onDeleteSupplierPress" icon="sap-icon://sys-cancel" type="Transparent" />
+				</ColumnListItem>
+			</items>
+		</Table>
+	</Page>
+</mvc:View>

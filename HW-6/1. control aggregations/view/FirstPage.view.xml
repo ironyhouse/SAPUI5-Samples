@@ -1,0 +1,111 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	controllerName="leverx.app.controller.FirstPage">
+	<Page title="My page">
+		<!-- The "content" is a default aggregation of control sap.m.Page, so the XML node can be omitted -->
+		<Table class="sapUiResponsiveMargin" width="auto">
+			<!-- Define "headerToolbar" aggregation of "Table" control-->
+			<headerToolbar>
+				<Toolbar>
+					<!-- Here the content is placed under the default aggregation of "Toolbar" control with name
+					"content", but can be omitted, just for demo reason -->
+					<content>
+						<Title text="Table's title" />
+
+						<ToolbarSpacer />
+
+						<Button text="Click me 1" />
+						<Button text="Click me 2" type="Emphasized" />
+					</content>
+				</Toolbar>
+			</headerToolbar>
+
+			<!-- Define "infoToolbar" aggregation in "Table" control -->
+			<infoToolbar>
+				<Toolbar>
+					<Text text="Info message" />
+				</Toolbar>
+			</infoToolbar>
+
+			<!-- Define "columns" aggregation in "Table" control -->
+			<columns>
+				<Column>
+					<!-- "header" aggregation in "Column" control -->
+					<header>
+						<!-- HBox (a kind of FlexBox) control is used to align to controls vertically here -->
+						<HBox alignItems="Center">
+							<Label text="Column1:" class="sapUiTinyMarginEnd" />
+							<Input />
+						</HBox>
+					</header>
+
+					<!-- "footer" aggregation in "Column" control -->
+					<footer>
+						<Text text="Footer1" />
+					</footer>
+				</Column>
+
+				<Column>
+					<header>
+						<CheckBox text="Check me" />
+					</header>
+					<footer>
+						<Text text="Footer1" />
+					</footer>
+				</Column>
+
+				<Column>
+					<Text text="Column2" />
+				</Column>
+			</columns>
+
+			<!-- "items" aggregation in "Table" control -->
+			<items>
+				<!-- "items" aggregation is presented in "sap.m.ListBase" control, which is a base class for
+				"sap.m.Table" control (the "sap.m.Table" is inherited from "sap.m.ListBase"), so the "sap.m.Table" has
+				"items" aggregation inherited form "sap.m.ListBase".
+
+				Documentation says that "items" can include controls only of type "sap.m.ListItemBase". As
+				"sap.m.ColumnListItem" is inherited from "sap.m.ListItemBase", it is possible to use it here -->
+				<ColumnListItem>
+					<!-- "cells" aggregation of "sap.m.ColumnListItem" control. This aggregation can hold multiple
+					controls of any type, the only rule is that it must be inherited from "sap.ui.core.Control" class -->
+					<cells>
+						<Text text="Cell 1.1" />
+						<Text text="Cell 1.2" />
+						<Text text="Cell 1.3" />
+					</cells>
+				</ColumnListItem>
+
+				<ColumnListItem>
+					<cells>
+						<Text text="Cell 2.1" />
+
+						<Image src="https://www.placecage.com/c/100/100">
+							<detailBox>
+								<LightBox>
+									<LightBoxItem
+										title="Cage"
+										subtitle="Sunny Cage!"
+										imageSrc="https://www.placecage.com/c/500/500" />
+								</LightBox>
+							</detailBox>
+						</Image>
+
+						<Text text="Cell 2.3" />
+					</cells>
+				</ColumnListItem>
+
+				<ColumnListItem>
+					<cells>
+						<Switch />
+						<ProgressIndicator percentValue="20" displayValue="20%" />
+						<u:Calendar />
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</Page>
+</mvc:View>
